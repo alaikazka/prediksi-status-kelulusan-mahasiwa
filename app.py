@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 
 # Konfigurasi Halaman
-st.set_page_config(page_title="Prediksi Kelulusan Mahasiswa", layout="centered")
+st.set_page_config(page_title="Prediksi Status Kelulusan Mahasiswa", layout="centered")
 
 # Judul Aplikasi
 st.title("Prediksi Status Mahasiswa")
