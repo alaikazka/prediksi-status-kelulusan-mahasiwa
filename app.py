@@ -7,7 +7,7 @@ import numpy as np
 st.set_page_config(page_title="Prediksi Status Kelulusan Mahasiswa", layout="centered")
 
 # Judul Aplikasi
-st.title("Prediksi Status Mahasiswa")
+st.title("Prediksi Kelulusan Status Mahasiswa")
 st.write("Aplikasi ini menggunakan algoritma **Support Vector Machine (SVM)** untuk memprediksi apakah mahasiswa akan Lulus, Dropout, atau Masih Aktif.")
 
 # Load Model
