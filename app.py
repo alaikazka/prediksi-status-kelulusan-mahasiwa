@@ -3,14 +3,11 @@ import pandas as pd
 import joblib
 import numpy as np
 
-# Konfigurasi Halaman
 st.set_page_config(page_title="Prediksi Status Kelulusan Mahasiswa", layout="centered")
 
-# Judul Aplikasi
 st.title("Prediksi Kelulusan Status Mahasiswa")
 st.write("Aplikasi ini menggunakan algoritma **Support Vector Machine (SVM)** untuk memprediksi apakah mahasiswa akan Lulus, Dropout, atau Masih Aktif.")
 
-# Load Model
 @st.cache_resource
 def load_model():
     try:
@@ -22,12 +19,10 @@ def load_model():
 
 model = load_model()
 
-# Mapping Hasil Prediksi (Sesuaikan dengan output train_model.py)
-# Biasanya: 0 = Dropout, 1 = Enrolled, 2 = Graduate
 target_mapping = {0: 'Dropout', 1: 'Enrolled', 2: 'Graduate'}
 warna_hasil = {'Dropout': 'red', 'Enrolled': 'orange', 'Graduate': 'green'}
 
-# --- INPUT PENGGUNA ---
+# INPUT
 st.subheader("Masukkan Data Mahasiswa")
 
 col1, col2 = st.columns(2)
@@ -43,10 +38,8 @@ with col2:
     sem2_approved = st.number_input("SKS Lulus (Semester 2)", min_value=0, max_value=30, value=5)
     sem2_grade = st.number_input("Nilai Rata-rata (Semester 2)", min_value=0.0, max_value=20.0, value=12.0)
 
-# --- TOMBOL PREDIKSI ---
 if st.button("Prediksi Status"):
     if model:
-        # Buat dataframe dari input
         input_data = pd.DataFrame({
             'Tuition fees up to date': [tuition_fees],
             'Scholarship holder': [scholarship],
@@ -57,21 +50,20 @@ if st.button("Prediksi Status"):
             'Age at enrollment': [age]
         })
 
-        # Lakukan Prediksi
+        # Prediksi
         prediction_index = model.predict(input_data)[0]
         prediction_label = target_mapping.get(prediction_index, "Unknown")
         probability = model.predict_proba(input_data).max()
 
-        # Tampilkan Hasil
+        # Hasil
         st.markdown("---")
         st.subheader("Hasil Prediksi:")
         
-        # Tampilkan dengan warna yang sesuai
         color = warna_hasil.get(prediction_label, 'blue')
         st.markdown(f"<h2 style='text-align: center; color: {color};'>{prediction_label}</h2>", unsafe_allow_html=True)
         st.write(f"Tingkat Keyakinan Model: **{probability*100:.2f}%**")
         
-        # Saran Singkat
+        # Saran
         if prediction_label == 'Dropout':
             st.warning("Mahasiswa ini berisiko tinggi putus kuliah. Disarankan untuk memberikan bimbingan konseling segera.")
         elif prediction_label == 'Enrolled':
