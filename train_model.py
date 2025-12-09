@@ -35,9 +35,8 @@ pipeline = Pipeline([
 ])
 
 # 6. train model
-print("Sedang melatih model SVM...")
 pipeline.fit(X_train, y_train)
-print("Pelatihan selesai!")
+
 
 joblib.dump(pipeline, 'svm_model.pkl')
-print("Model berhasil disimpan sebagai 'svm_model.pkl'")
+print("Model disimpan sebagai 'svm_model.pkl'")
