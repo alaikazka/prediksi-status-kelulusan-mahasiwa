@@ -56,7 +56,7 @@ with st.container():
         tuition_fees = st.selectbox(
             "Status Pembayaran SPP", 
             [1, 0], 
-            format_func=lambda x: "Lancar (Up to date)" if x == 1 else "Menunggak"
+            format_func=lambda x: "Lancar" if x == 1 else "Menunggak"
         )
         scholarship = st.selectbox(
             "Penerima Beasiswa", 
@@ -76,14 +76,14 @@ with st.container():
         st.markdown("**Data Akademik**")
         # Range SKS: 0 - 17
         sem1_approved = st.number_input(
-            "SKS Lulus (Semester 1)", 
+            "SKS Lulus Semester 1 (0 - 17)", 
             min_value=0, 
             max_value=17, 
             value=5,
             help="Jumlah SKS yang berhasil lulus di semester 1 (Maks: 17)"
         )
         sem1_grade = st.number_input(
-            "Nilai Rata-rata (Semester 1)", 
+            "Nilai Rata-rata Semester 1 (0 - 20.0)", 
             min_value=0.0, 
             max_value=20.0, 
             value=12.0,
@@ -91,14 +91,14 @@ with st.container():
         )
         # Range SKS: 0 - 17
         sem2_approved = st.number_input(
-            "SKS Lulus (Semester 2)", 
+            "SKS Lulus Semester 2 (0 - 17)", 
             min_value=0, 
             max_value=17, 
             value=5,
             help="Jumlah SKS yang berhasil lulus di semester 2 (Maks: 17)"
         )
         sem2_grade = st.number_input(
-            "Nilai Rata-rata (Semester 2)", 
+            "Nilai Rata-rata Semester 2 (0 - 20.0)", 
             min_value=0.0, 
             max_value=20.0, 
             value=12.0,
@@ -165,9 +165,9 @@ if st.button("🔍 Prediksi Status", type="primary"):
                 
                 # Logika Saran (Hanya Dropout dan Graduate)
                 if prediction_label == 'Dropout':
-                    st.error("⚠️ **Peringatan:** Mahasiswa ini terdeteksi memiliki risiko tinggi untuk Dropout. Disarankan untuk segera melakukan intervensi akademik atau konseling.")
+                    st.error("⚠️ **Diprediksi Dropout:** Mahasiswa terdeteksi memiliki risiko tinggi untuk Dropout. Disarankan untuk segera melakukan intervensi akademik atau konsultasi dengan dosen pembimbing akademik.")
                 elif prediction_label == 'Graduate':
-                    st.success("✅ **Prospek Positif:** Mahasiswa ini diprediksi akan Lulus. Pertahankan performa akademik saat ini.")
+                    st.success("✅ **Prospek Positif:** Jika mahasiswa dapat mempertahankan performa akademik saat ini. Mahasiswa ini diprediksi akan Lulus. ")
                 else:
                     st.write("Hasil prediksi tidak dapat dikategorikan.")
         
